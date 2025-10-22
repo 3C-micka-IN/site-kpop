@@ -1,17 +1,23 @@
-// Captura o botão de alternância e o corpo do documento
-const themeToggleButton = document.getElementById('theme-toggle');
+// Seleciona o botão e o elemento body
+const toggleButton = document.getElementById('toggle-theme');
 const body = document.body;
 
-// Verifica se o modo escuro está ativado e ajusta a classe
-themeToggleButton.addEventListener('click', () => {
-    body.classList.toggle('dark-mode'); // Alterna a classe 'dark-mode'
+// Verifica se o tema foi salvo no localStorage
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+    toggleButton.textContent = 'Modo Claro'; // Atualiza o texto do botão
+}
+
+// Adiciona o evento de clique no botão
+toggleButton.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
     
-    // Atualiza o texto do botão dependendo do modo
+    // Salva a preferência do usuário no localStorage
     if (body.classList.contains('dark-mode')) {
-        themeToggleButton.textContent = 'Modo Claro'; // Exibe "Modo Claro" quando no modo escuro
-        themeToggleButton.setAttribute('aria-label', 'Alternar para modo claro');
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = 'Modo Claro';
     } else {
-        themeToggleButton.textContent = 'Modo Escuro'; // Exibe "Modo Escuro" quando no modo claro
-        themeToggleButton.setAttribute('aria-label', 'Alternar para modo escuro');
+        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = 'Modo Escuro';
     }
 });
